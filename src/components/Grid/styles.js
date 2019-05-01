@@ -4,7 +4,8 @@ export const GridContainer = styled.div`
   width: 100%;
   max-width: 500px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: ${props =>
+    props.singleItem != null ? "1fr" : "repeat(auto-fill, minmax(150px, 1fr))"};
   grid-auto-rows: minmax(150px, auto);
   grid-gap: 16px;
 `;
@@ -13,6 +14,8 @@ export const GridItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 1s;
+  display: ${props => (props.show ? "block" : "none")};
 `;
 
 export const ProjectCard = styled.div`
