@@ -13,12 +13,13 @@ import ProjectLink from "../ProjectLink";
 
 const CounterContainer = ({ match }) => {
   const project = projectsList.find(project => {
-    return (project.id = match.params.id);
+    return project.id === match.params.id;
   });
 
   const counter = project.counters.find(counter => {
-    return (counter.id = match.params.counterId);
+    return counter.id === match.params.counterId;
   });
+
   const [count, setCount] = useState(counter.value);
 
   return (
