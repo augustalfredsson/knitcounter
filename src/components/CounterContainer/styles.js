@@ -4,11 +4,14 @@ export const ProjectTitle = styled.p`
   text-align: center;
   font-size: 16px;
   color: #323232;
-  margin: 4px auto 0 auto;
+  margin: 8px auto 0 auto;
   padding: 4px 8px;
   border: 1px solid #323232;
   border-radius: 4px;
   font-family: "Courier New", Courier, monospace;
+  :hover {
+    background: rgba(100, 100, 100, 0.1);
+  }
 `;
 
 export const CounterTitle = styled.h3`
@@ -36,10 +39,10 @@ export const BodyText = styled.p`
 
 export const WrapperFlexColumn = styled.div`
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
 `;
 
 export const Column = styled.div`
@@ -57,6 +60,7 @@ export const Button = styled.button`
   border-radius: 4px;
   font-weight: bold;
   font-size: 40px;
+  touch-action: manipulation;
   &:first-child {
     margin-left: 0px;
   }
