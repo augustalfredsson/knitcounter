@@ -17,7 +17,9 @@ const Project = ({ match, history }) => {
         list={item.counters}
         onItemClick={counterId => history.push(`/${item.id}/${counterId}`)}
       />
-      <ProjectLink href={`${window.location.origin}/`}>Projects</ProjectLink>
+      <ProjectLink href={`${window.location.origin}/`}>
+        More projects
+      </ProjectLink>
     </>
   );
 };
