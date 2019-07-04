@@ -1,24 +1,44 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import firebase, { auth } from "firebase";
 import { projectsList } from "../../data";
 import { Title } from "../../styles";
 import Grid from "../Grid";
 import ProjectLink from "../ProjectLink";
 
 const Project = ({ match, history }) => {
-  const item = projectsList.find(item => {
-    return item.id === match.params.id;
+  const [project, setProject] = useState();
+
+  var database = firebase.firestore();
+  auth().onAuthStateChanged(function(user) {
+    if (user && !project) {
+      const docRef = database.collection("users").doc(user.uid);
+      docRef.get().then(doc => {
+        const project = doc.data().projects.find(item => {
+          return item.id === match.params.id;
+        });
+        setProject(project);
+      });
+    }
   });
+
+  if (project) {
+    return (
+      <>
+        <Title>{project.name}</Title>
+        <Grid
+          list={project.counters}
+          onItemClick={counterId => history.push(`/${project.id}/${counterId}`)}
+        />
+        <ProjectLink href={`${window.location.origin}/`}>
+          More projects
+        </ProjectLink>
+      </>
+    );
+  }
   return (
     <>
-      <Title>{item.name}</Title>
-      <Grid
-        list={item.counters}
-        onItemClick={counterId => history.push(`/${item.id}/${counterId}`)}
-      />
-      <ProjectLink href={`${window.location.origin}/`}>
-        More projects
-      </ProjectLink>
+      <Title>Loading</Title>{" "}
     </>
   );
 };

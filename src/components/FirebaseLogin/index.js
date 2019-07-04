@@ -1,32 +1,23 @@
-import React from "react";
-import Grid from "../Grid";
-import { Title } from "../../styles";
-import { projectsList } from "../../data";
+import React, { useState } from "react";
 import styled from "styled-components";
-import firebase from "firebase";
+import { auth } from "firebase";
+import UserAvatar from "../UserAvatar";
 
 const FirebaseLogin = () => {
-  var provider = new firebase.auth.GoogleAuthProvider();
+  var provider = new auth.GoogleAuthProvider();
+
+  const [currentUser, setCurrentUser] = useState();
 
   const login = () => {
-    console.log("logging in");
-
-    firebase.auth().signInWithRedirect(provider);
+    auth().signInWithRedirect(provider);
   };
 
-  firebase
-    .auth()
+  auth()
     .getRedirectResult()
     .then(function(result) {
       if (result.credential) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        localStorage.setItem("accessToken", token);
         // The signed-in user info.
         var user = result.user;
-        console.log("user", JSON.stringify(user));
-
-        localStorage.setItem("user", JSON.stringify(user));
       }
     })
     .catch(function(error) {
@@ -40,16 +31,19 @@ const FirebaseLogin = () => {
       // ...
     });
 
-  const user = localStorage.getItem("user");
+  auth().onAuthStateChanged(function(user) {
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(null);
+    }
+  });
 
-  if (user) {
-    return <Image src={JSON.parse(user).photoURL} alt="" />;
+  if (currentUser) {
+    return <UserAvatar photoURL={currentUser.photoURL} />;
   } else {
-    return (
-      <>
-        <Button onClick={login}>Sign in with Google</Button>
-      </>
-    );
+    // No user is signed in.
+    return <Button onClick={login}>Log in with Google</Button>;
   }
 };
 
