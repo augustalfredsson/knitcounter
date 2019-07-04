@@ -2,12 +2,15 @@ import React from "react";
 import Grid from "../Grid";
 import { Title } from "../../styles";
 import { projectsList } from "../../data";
+import styled from "styled-components";
 import firebase from "firebase";
 
 const FirebaseLogin = () => {
   var provider = new firebase.auth.GoogleAuthProvider();
 
   const login = () => {
+    console.log("logging in");
+
     firebase.auth().signInWithRedirect(provider);
   };
 
@@ -19,13 +22,12 @@ const FirebaseLogin = () => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
         localStorage.setItem("accessToken", token);
-        // ...
-      }
-      // The signed-in user info.
-      var user = result.user;
-      console.log("user", user);
+        // The signed-in user info.
+        var user = result.user;
+        console.log("user", JSON.stringify(user));
 
-      localStorage.setItem("user", user);
+        localStorage.setItem("user", JSON.stringify(user));
+      }
     })
     .catch(function(error) {
       // Handle Errors here.
@@ -37,12 +39,30 @@ const FirebaseLogin = () => {
       var credential = error.credential;
       // ...
     });
-  return (
-    <>
-      Sign in with Google
-      <button onClick={login}>Continue</button>
-    </>
-  );
+
+  const user = localStorage.getItem("user");
+
+  if (user) {
+    return <Image src={JSON.parse(user).photoURL} alt="" />;
+  } else {
+    return (
+      <>
+        <Button onClick={login}>Sign in with Google</Button>
+      </>
+    );
+  }
 };
 
 export default FirebaseLogin;
+
+const Button = styled.button`
+  border: 1px solid #232323;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px;
+`;
+
+const Image = styled.img`
+  width: 50px;
+  border-radius: 100%;
+`;

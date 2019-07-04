@@ -6,7 +6,6 @@ import Grid from "../Grid";
 import ProjectLink from "../ProjectLink";
 
 const Project = ({ match, history }) => {
-  console.log(projectsList);
   const item = projectsList.find(item => {
     return item.id === match.params.id;
   });
