@@ -3,13 +3,11 @@ import firebase, { auth } from "firebase";
 import {
   WrapperFlexColumn,
   Column,
-  ProjectTitle,
+  CounterTitle,
   Number,
   Button,
   Row
 } from "./styles";
-import { Title } from "../../styles";
-import { projectsList } from "../../data";
 import ProjectLink from "../ProjectLink";
 
 const CounterContainer = ({ match }) => {
@@ -26,7 +24,6 @@ const CounterContainer = ({ match }) => {
           return item.id === match.params.id;
         });
         setProject(project);
-        console.log("project", project);
         const counter = project.counters.find(counter => {
           return counter.id === match.params.counterId;
         });
@@ -40,10 +37,10 @@ const CounterContainer = ({ match }) => {
     return (
       <WrapperFlexColumn>
         <Column>
-          <Title>{counter.name}</Title>
           <ProjectLink href={`${window.location.origin}/${project.id}`}>
             {project.name}
           </ProjectLink>
+          <CounterTitle>{counter.name}</CounterTitle>
         </Column>
         <Row>
           <Number>{count}</Number>
@@ -58,7 +55,7 @@ const CounterContainer = ({ match }) => {
     return (
       <WrapperFlexColumn>
         <Column>
-          <Title>Loading</Title>
+          <CounterTitle>Loading</CounterTitle>
         </Column>
       </WrapperFlexColumn>
     );

@@ -1,12 +1,29 @@
 import React, { Component } from "react";
 import ProjectsGrid from "./components/ProjectsGrid";
 import Project from "./components/Project";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import CounterContainer from "./components/CounterContainer";
 import { AppContainer } from "./styles";
 import "./App.css";
 
 class App extends Component {
+  componentWillMount() {
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBjDkWq5TSbn-rU9UXPEGMrKNCIBI2ZkUI",
+      authDomain: "knit-counter.firebaseapp.com",
+      databaseURL: "https://knit-counter.firebaseio.com",
+      projectId: "knit-counter",
+      storageBucket: "knit-counter.appspot.com",
+      messagingSenderId: "664947759934",
+      appId: "1:664947759934:web:9970e52d75326152"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  }
   render() {
     return (
       <AppContainer>

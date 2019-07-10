@@ -4,7 +4,7 @@ export const ProjectTitle = styled.p`
   text-align: center;
   font-size: 16px;
   color: #323232;
-  margin: 8px auto 0 auto;
+  margin: 32px auto 0 auto;
   padding: 4px 8px;
   border: 1px solid #323232;
   border-radius: 4px;
@@ -24,9 +24,12 @@ export const CounterTitle = styled.h3`
 export const Number = styled.p`
   align-self: center;
   color: black;
-  font-size: 200px;
+  font-size: 140px;
   margin: 0;
   opacity: 0.8;
+  @media (min-width: 475px) {
+    font-size: 200px;
+  }
 `;
 
 export const BodyText = styled.p`

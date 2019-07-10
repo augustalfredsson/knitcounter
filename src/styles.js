@@ -14,6 +14,7 @@ export const AppContainer = styled.div`
 export const Title = styled.h1`
   width: 100%;
   margin: 24px 0 24px 0;
+  font-size: 48px;
   opacity: 0.9;
   display: ${props => (props.hide ? "none" : "inline-block")};
 `;
