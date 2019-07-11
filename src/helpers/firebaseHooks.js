@@ -9,25 +9,28 @@ export function useProjects() {
   const [projects, setProjects] = useState(null);
   const user = useSession();
   useEffect(() => {
-    const unsubscribe = db
-      .collection("users")
-      .doc(user.uid)
-      .collection("projects")
-      .onSnapshot(
-        querySnapshot => {
-          const p = {};
-          querySnapshot.forEach(doc => {
-            p[doc.id] = doc.data();
-          });
-          setLoading(false);
-          setProjects(p);
-        },
-        err => {
-          console.log("error", err);
+    var unsubscribe;
+    if (user) {
+      unsubscribe = db
+        .collection("users")
+        .doc(user.uid)
+        .collection("projects")
+        .onSnapshot(
+          querySnapshot => {
+            const p = {};
+            querySnapshot.forEach(doc => {
+              p[doc.id] = doc.data();
+            });
+            setLoading(false);
+            setProjects(p);
+          },
+          err => {
+            console.log("error", err);
 
-          setError(err);
-        }
-      );
+            setError(err);
+          }
+        );
+    }
     return () => unsubscribe();
   }, [user]);
 
@@ -46,22 +49,25 @@ export function useProject(projectId) {
   const [project, setProject] = useState(null);
   const user = useSession();
   useEffect(() => {
-    const unsubscribe = db
-      .collection("users")
-      .doc(user.uid)
-      .collection("projects")
-      .doc(projectId)
-      .onSnapshot(
-        doc => {
-          setProject(doc.data());
-          setLoading(false);
-        },
-        err => {
-          console.log("error", err);
-          setError(err);
-        }
-      );
-    return () => unsubscribe();
+    var unsubscribe;
+    if (user) {
+      unsubscribe = db
+        .collection("users")
+        .doc(user.uid)
+        .collection("projects")
+        .doc(projectId)
+        .onSnapshot(
+          doc => {
+            setProject(doc.data());
+            setLoading(false);
+          },
+          err => {
+            console.log("error", err);
+            setError(err);
+          }
+        );
+      return () => unsubscribe();
+    }
   }, [user]);
 
   return {
@@ -83,31 +89,31 @@ export function useCounter(projectId, counterId) {
   }, [project]);
 
   const increment = () => {
-    const unsubscribe = db
-      .collection("users")
-      .doc(user.uid)
-      .collection("projects")
-      .doc(projectId)
-      .update(
-        `counters.${counterId}.value`,
-        firebase.firestore.FieldValue.increment(1)
-      )
-      .then(d => {});
-    return () => unsubscribe();
+    if (user) {
+      db.collection("users")
+        .doc(user.uid)
+        .collection("projects")
+        .doc(projectId)
+        .update(
+          `counters.${counterId}.value`,
+          firebase.firestore.FieldValue.increment(1)
+        )
+        .then(d => {});
+    }
   };
 
   const decrement = () => {
-    const unsubscribe = db
-      .collection("users")
-      .doc(user.uid)
-      .collection("projects")
-      .doc(projectId)
-      .update(
-        `counters.${counterId}.value`,
-        firebase.firestore.FieldValue.increment(-1)
-      )
-      .then(d => {});
-    return () => unsubscribe();
+    if (user) {
+      db.collection("users")
+        .doc(user.uid)
+        .collection("projects")
+        .doc(projectId)
+        .update(
+          `counters.${counterId}.value`,
+          firebase.firestore.FieldValue.increment(-1)
+        )
+        .then(d => {});
+    }
   };
 
   return {
