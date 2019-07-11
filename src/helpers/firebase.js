@@ -3,14 +3,10 @@ import firebase, { auth } from "firebase";
 import { useSession } from "./auth";
 
 export function useProjects() {
-  // initialize our default state
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState(null);
   const user = useSession();
-  // when the id attribute changes (including mount)
-  // subscribe to the recipe document and update
-  // our state when it changes.
   useEffect(() => {
     console.log("user", user);
     const unsubscribe = firebase
@@ -33,9 +29,6 @@ export function useProjects() {
           setError(err);
         }
       );
-    // returning the unsubscribe function will ensure that
-    // we unsubscribe from document changes when our id
-    // changes to a different value.
     return () => unsubscribe();
   }, [user]);
 
@@ -52,9 +45,6 @@ export function useProject(projectId) {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const user = useSession();
-  // when the id attribute changes (including mount)
-  // subscribe to the recipe document and update
-  // our state when it changes.
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
@@ -72,9 +62,6 @@ export function useProject(projectId) {
           setError(err);
         }
       );
-    // returning the unsubscribe function will ensure that
-    // we unsubscribe from document changes when our id
-    // changes to a different value.
     return () => unsubscribe();
   }, [user]);
 
@@ -87,12 +74,8 @@ export function useProject(projectId) {
 
 export function useCounter(projectId, counterId) {
   const user = useSession();
-  // initialize our default state
   const [counter, setCounter] = useState(null);
   const { error, loading, project } = useProject(projectId);
-  // when the id attribute changes (including mount)
-  // subscribe to the recipe document and update
-  // our state when it changes.
   useEffect(() => {
     if (project) {
       setCounter(project.counters[counterId]);
@@ -111,9 +94,6 @@ export function useCounter(projectId, counterId) {
         firebase.firestore.FieldValue.increment(1)
       )
       .then(d => {});
-    // returning the unsubscribe function will ensure that
-    // we unsubscribe from document changes when our id
-    // changes to a different value.
     return () => unsubscribe();
   };
 
@@ -129,9 +109,6 @@ export function useCounter(projectId, counterId) {
         firebase.firestore.FieldValue.increment(-1)
       )
       .then(d => {});
-    // returning the unsubscribe function will ensure that
-    // we unsubscribe from document changes when our id
-    // changes to a different value.
     return () => unsubscribe();
   };
 
