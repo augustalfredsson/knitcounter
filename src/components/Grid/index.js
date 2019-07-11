@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { GridContainer, GridItem, Card, CardLabel } from "./styles.js";
 
-const Grid = ({ data, onItemClick }) => {
+const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
   const [itemIdClicked, setItemIdClicked] = useState(null);
-  console.log("data", data);
   return (
     <GridContainer>
       {Object.keys(data).map(key => {
@@ -21,6 +20,13 @@ const Grid = ({ data, onItemClick }) => {
           </GridItem>
         );
       })}
+      {additionalItem && (
+        <GridItem key="additionalItem">
+          <Card onClick={onAdditionalItemClick}>
+            <CardLabel>{additionalItem.label}</CardLabel>
+          </Card>
+        </GridItem>
+      )}
     </GridContainer>
   );
 };

@@ -21,7 +21,7 @@ const Project = ({ match, history }) => {
           <Grid
             data={project.counters}
             onItemClick={counterId =>
-              history.push(`/${project.id}/${counterId}`)
+              history.push(`/project/${project.id}/${counterId}`)
             }
           />
           <ProjectLink href={`${window.location.origin}/`}>

@@ -22,7 +22,7 @@ const CounterContainer = ({ match }) => {
     return (
       <WrapperFlexColumn>
         <Column>
-          <ProjectLink href={`${window.location.origin}/${project.id}`}>
+          <ProjectLink href={`${window.location.origin}/project/${project.id}`}>
             {project.name}
           </ProjectLink>
           <CounterTitle>{counter.name}</CounterTitle>

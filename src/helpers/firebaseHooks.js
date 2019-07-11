@@ -3,14 +3,13 @@ import firebase, { auth } from "firebase";
 import { useSession } from "./auth";
 
 export function useProjects() {
+  const db = firebase.firestore();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState(null);
   const user = useSession();
   useEffect(() => {
-    console.log("user", user);
-    const unsubscribe = firebase
-      .firestore()
+    const unsubscribe = db
       .collection("users")
       .doc(user.uid)
       .collection("projects")
@@ -40,14 +39,14 @@ export function useProjects() {
 }
 
 export function useProject(projectId) {
+  const db = firebase.firestore();
   // initialize our default state
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const user = useSession();
   useEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
+    const unsubscribe = db
       .collection("users")
       .doc(user.uid)
       .collection("projects")
@@ -73,6 +72,7 @@ export function useProject(projectId) {
 }
 
 export function useCounter(projectId, counterId) {
+  const db = firebase.firestore();
   const user = useSession();
   const [counter, setCounter] = useState(null);
   const { error, loading, project } = useProject(projectId);
@@ -83,8 +83,7 @@ export function useCounter(projectId, counterId) {
   }, [project]);
 
   const increment = () => {
-    const unsubscribe = firebase
-      .firestore()
+    const unsubscribe = db
       .collection("users")
       .doc(user.uid)
       .collection("projects")
@@ -98,8 +97,7 @@ export function useCounter(projectId, counterId) {
   };
 
   const decrement = () => {
-    const unsubscribe = firebase
-      .firestore()
+    const unsubscribe = db
       .collection("users")
       .doc(user.uid)
       .collection("projects")
@@ -121,3 +119,28 @@ export function useCounter(projectId, counterId) {
     decrement
   };
 }
+
+export const useCreateProject = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [projectId, setProjectId] = useState();
+  const db = firebase.firestore();
+  const user = useSession();
+  const createProject = projectName => {
+    var newProjectRef = db
+      .collection("users")
+      .doc(user.uid)
+      .collection("projects")
+      .doc();
+    setProjectId(newProjectRef.id);
+
+    newProjectRef
+      .set({ name: projectName, id: newProjectRef.id, counters: {} })
+      .then(() => setLoading(false))
+      .catch(e => {
+        setError(e);
+      });
+  };
+
+  return { createProject, projectId, loading, error };
+};

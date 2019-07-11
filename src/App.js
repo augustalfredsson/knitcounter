@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ProjectsGrid from "./components/ProjectsGrid";
 import Project from "./components/Project";
+import CreateProject from "./components/CreateProject";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -36,8 +37,13 @@ const App = () => {
       <AppContainer>
         <Router>
           <Route path="/" exact component={ProjectsGrid} />
-          <Route path="/:id" exact component={Project} />
-          <Route path="/:id/:counterId" exact component={CounterContainer} />
+          <Route path="/create" exact component={CreateProject} />
+          <Route path="/project/:id" exact component={Project} />
+          <Route
+            path="/project/:id/:counterId"
+            exact
+            component={CounterContainer}
+          />
         </Router>
       </AppContainer>
     </userContext.Provider>
