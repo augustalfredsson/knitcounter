@@ -56,25 +56,22 @@ export function useProject(projectId) {
   // subscribe to the recipe document and update
   // our state when it changes.
   useEffect(() => {
-    console.log("user", user);
     const unsubscribe = firebase
       .firestore()
       .collection("users")
       .doc(user.uid)
       .collection("projects")
-      .where("id", "==", projectId)
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          console.log("doc.data", doc.data());
-          setLoading(false);
+      .doc(projectId)
+      .onSnapshot(
+        doc => {
           setProject(doc.data());
-        });
-      })
-      .catch(err => {
-        console.log("error", err);
-        setError(err);
-      });
+          setLoading(false);
+        },
+        err => {
+          console.log("error", err);
+          setError(err);
+        }
+      );
     // returning the unsubscribe function will ensure that
     // we unsubscribe from document changes when our id
     // changes to a different value.
@@ -85,5 +82,65 @@ export function useProject(projectId) {
     error,
     loading,
     project
+  };
+}
+
+export function useCounter(projectId, counterId) {
+  const user = useSession();
+  // initialize our default state
+  const [counter, setCounter] = useState(null);
+  const { error, loading, project } = useProject(projectId);
+  // when the id attribute changes (including mount)
+  // subscribe to the recipe document and update
+  // our state when it changes.
+  useEffect(() => {
+    if (project) {
+      setCounter(project.counters[counterId]);
+    }
+  }, [project]);
+
+  const increment = () => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .collection("projects")
+      .doc(projectId)
+      .update(
+        `counters.${counterId}.value`,
+        firebase.firestore.FieldValue.increment(1)
+      )
+      .then(d => {});
+    // returning the unsubscribe function will ensure that
+    // we unsubscribe from document changes when our id
+    // changes to a different value.
+    return () => unsubscribe();
+  };
+
+  const decrement = () => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .collection("projects")
+      .doc(projectId)
+      .update(
+        `counters.${counterId}.value`,
+        firebase.firestore.FieldValue.increment(-1)
+      )
+      .then(d => {});
+    // returning the unsubscribe function will ensure that
+    // we unsubscribe from document changes when our id
+    // changes to a different value.
+    return () => unsubscribe();
+  };
+
+  return {
+    error,
+    loading,
+    counter,
+    project,
+    increment,
+    decrement
   };
 }

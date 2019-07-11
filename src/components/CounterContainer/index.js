@@ -9,41 +9,14 @@ import {
   Row
 } from "./styles";
 import ProjectLink from "../ProjectLink";
+import { useCounter } from "../../helpers/firebase";
 
 const CounterContainer = ({ match }) => {
-  const [project, setProject] = useState();
-  const [counter, setCounter] = useState();
   const [count, setCount] = useState();
-  const [user, setUser] = useState();
-
-  var database = firebase.firestore();
-  auth().onAuthStateChanged(function(user) {
-    if (user && !counter) {
-      setUser(user.uid);
-      const docRef = database.collection("users").doc(user.uid);
-      docRef.get().then(doc => {
-        const project = doc.data().projects.find(item => {
-          return item.id === match.params.id;
-        });
-        setProject(project);
-        const counter = project.counters.find(counter => {
-          return counter.id === match.params.counterId;
-        });
-        setCounter(counter);
-        setCount(parseInt(counter.value));
-      });
-    }
-  });
-
-  const increase = () => {
-    const userRef = database
-      .collection("users")
-      .doc(user)
-      .update({ projects: {} });
-    // docRef.set().then(function() {
-    //   console.log("Document successfully written!");
-    // });
-  };
+  const { error, loading, counter, project, increment, decrement } = useCounter(
+    match.params.id,
+    match.params.counterId
+  );
 
   if (counter) {
     return (
@@ -55,11 +28,11 @@ const CounterContainer = ({ match }) => {
           <CounterTitle>{counter.name}</CounterTitle>
         </Column>
         <Row>
-          <Number>{count}</Number>
+          <Number>{counter.value}</Number>
         </Row>
         <Row>
-          <Button onClick={() => setCount(count - 1)}>-</Button>
-          <Button onClick={increase}>+</Button>
+          <Button onClick={decrement}>-</Button>
+          <Button onClick={increment}>+</Button>
         </Row>
       </WrapperFlexColumn>
     );
