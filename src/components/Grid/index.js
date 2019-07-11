@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { GridContainer, GridItem, Card, CardLabel } from "./styles.js";
 
-const Grid = ({ list, onItemClick }) => {
+const Grid = ({ data, onItemClick }) => {
   const [itemIdClicked, setItemIdClicked] = useState(null);
+  console.log("data", data);
   return (
     <GridContainer>
-      {list.map(item => {
+      {Object.keys(data).map(key => {
         return (
           <GridItem
-            key={item.id}
-            show={itemIdClicked === null || itemIdClicked === item.id}
+            key={data[key].id}
+            show={itemIdClicked === null || itemIdClicked === data[key].id}
           >
-            <Card background={item.image} onClick={() => onItemClick(item.id)}>
-              <CardLabel>{item.name}</CardLabel>
+            <Card
+              background={data[key].image}
+              onClick={() => onItemClick(data[key].id)}
+            >
+              <CardLabel>{data[key].name}</CardLabel>
             </Card>
           </GridItem>
         );

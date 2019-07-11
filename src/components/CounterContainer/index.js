@@ -14,10 +14,12 @@ const CounterContainer = ({ match }) => {
   const [project, setProject] = useState();
   const [counter, setCounter] = useState();
   const [count, setCount] = useState();
+  const [user, setUser] = useState();
 
   var database = firebase.firestore();
   auth().onAuthStateChanged(function(user) {
     if (user && !counter) {
+      setUser(user.uid);
       const docRef = database.collection("users").doc(user.uid);
       docRef.get().then(doc => {
         const project = doc.data().projects.find(item => {
@@ -33,6 +35,16 @@ const CounterContainer = ({ match }) => {
     }
   });
 
+  const increase = () => {
+    const userRef = database
+      .collection("users")
+      .doc(user)
+      .update({ projects: {} });
+    // docRef.set().then(function() {
+    //   console.log("Document successfully written!");
+    // });
+  };
+
   if (counter) {
     return (
       <WrapperFlexColumn>
@@ -47,7 +59,7 @@ const CounterContainer = ({ match }) => {
         </Row>
         <Row>
           <Button onClick={() => setCount(count - 1)}>-</Button>
-          <Button onClick={() => setCount(count + 1)}>+</Button>
+          <Button onClick={increase}>+</Button>
         </Row>
       </WrapperFlexColumn>
     );

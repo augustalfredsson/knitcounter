@@ -5,40 +5,30 @@ import { projectsList } from "../../data";
 import { Title } from "../../styles";
 import Grid from "../Grid";
 import ProjectLink from "../ProjectLink";
+import { useProject } from "../../helpers/firebase";
 
 const Project = ({ match, history }) => {
-  const [project, setProject] = useState();
+  // const [project, setProject] = useState();
+  const { project, loading, error } = useProject(match.params.id);
 
-  var database = firebase.firestore();
-  auth().onAuthStateChanged(function(user) {
-    if (user && !project) {
-      const docRef = database.collection("users").doc(user.uid);
-      docRef.get().then(doc => {
-        const project = doc.data().projects.find(item => {
-          return item.id === match.params.id;
-        });
-        setProject(project);
-      });
-    }
-  });
-
-  if (project) {
-    return (
-      <>
-        <Title>{project.name}</Title>
-        <Grid
-          list={project.counters}
-          onItemClick={counterId => history.push(`/${project.id}/${counterId}`)}
-        />
-        <ProjectLink href={`${window.location.origin}/`}>
-          More projects
-        </ProjectLink>
-      </>
-    );
-  }
   return (
     <>
-      <Title>Loading</Title>{" "}
+      {loading && <Title>Loading</Title>}
+
+      {project && (
+        <>
+          <Title>{project.name}</Title>
+          <Grid
+            data={project.counters}
+            onItemClick={counterId =>
+              history.push(`/${project.id}/${counterId}`)
+            }
+          />
+          <ProjectLink href={`${window.location.origin}/`}>
+            More projects
+          </ProjectLink>
+        </>
+      )}
     </>
   );
 };

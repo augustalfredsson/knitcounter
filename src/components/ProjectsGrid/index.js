@@ -1,22 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import firebase, { auth } from "firebase";
 import Grid from "../Grid";
 import { Title, NavBar, NavBarItem } from "../../styles";
 import FirebaseLogin from "../FirebaseLogin";
+import { useSession } from "../../helpers/auth";
+import { useProjects } from "../../helpers/firebase";
 
 const ProjectsGrid = ({ list, history }) => {
-  const [projects, setProjects] = useState();
-
-  var database = firebase.firestore();
-  auth().onAuthStateChanged(function(user) {
-    if (user && !projects) {
-      const docRef = database.collection("users").doc(user.uid);
-      docRef.get().then(doc => {
-        console.log("doc.data().projects", doc.data().projects);
-        setProjects(doc.data().projects);
-      });
-    }
-  });
+  const { error, loading, projects } = useProjects();
 
   return (
     <>
@@ -29,9 +20,11 @@ const ProjectsGrid = ({ list, history }) => {
         </NavBarItem>
         <NavBarItem />
       </NavBar>
+
+      {loading && <Title>Loading projects</Title>}
       {projects && (
         <Grid
-          list={projects}
+          data={projects}
           onItemClick={id => {
             history.push(`/${id}`);
           }}
