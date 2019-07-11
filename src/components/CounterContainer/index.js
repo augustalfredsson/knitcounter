@@ -9,7 +9,7 @@ import {
   Row
 } from "./styles";
 import ProjectLink from "../ProjectLink";
-import { useCounter } from "../../helpers/firebase";
+import { useCounter } from "../../helpers/firebaseHooks";
 
 const CounterContainer = ({ match }) => {
   const [count, setCount] = useState();

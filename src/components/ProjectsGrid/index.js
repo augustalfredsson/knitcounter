@@ -4,7 +4,7 @@ import Grid from "../Grid";
 import { Title, NavBar, NavBarItem } from "../../styles";
 import FirebaseLogin from "../FirebaseLogin";
 import { useSession } from "../../helpers/auth";
-import { useProjects } from "../../helpers/firebase";
+import { useProjects } from "../../helpers/firebaseHooks";
 
 const ProjectsGrid = ({ list, history }) => {
   const { error, loading, projects } = useProjects();

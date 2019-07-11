@@ -5,7 +5,7 @@ import { projectsList } from "../../data";
 import { Title } from "../../styles";
 import Grid from "../Grid";
 import ProjectLink from "../ProjectLink";
-import { useProject } from "../../helpers/firebase";
+import { useProject } from "../../helpers/firebaseHooks";
 
 const Project = ({ match, history }) => {
   // const [project, setProject] = useState();
