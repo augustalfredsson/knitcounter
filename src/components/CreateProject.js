@@ -26,7 +26,7 @@ const CreateProject = ({ history }) => {
         <Label>Project Name</Label>
         <Input type="text" value={projectName} onChange={handleInputChange} />
         <Row>
-          <CancelButton onClick={() => history.back()}>Cancel</CancelButton>
+          <CancelButton onClick={() => history.goBack()}>Cancel</CancelButton>
           <Button onClick={() => createProject(projectName)}>Create</Button>
         </Row>
       </InputWrapper>
@@ -58,7 +58,7 @@ const Input = styled.input`
   max-width: 300px;
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid black;
+  border: 1px solid black;
 `;
 
 const Row = styled.div`
@@ -73,11 +73,11 @@ const Button = styled.button`
   align-self: flex-end;
   margin: 8px 0;
   padding: 8px;
-  background: blue;
+  background: #63ab69;
   font-size: 16px;
   font-weight: bold;
   color: white;
-  border: 1px solid blue;
+  border: 1px solid #63ab69;
   border-radius: 8px;
 `;
 
