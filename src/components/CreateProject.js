@@ -25,11 +25,11 @@ const CreateProject = ({ history }) => {
       <InputWrapper>
         <Label>Project Name</Label>
         <Input type="text" value={projectName} onChange={handleInputChange} />
-        <Button onClick={() => createProject(projectName)}>Create</Button>
+        <Row>
+          <CancelButton onClick={() => history.back()}>Cancel</CancelButton>
+          <Button onClick={() => createProject(projectName)}>Create</Button>
+        </Row>
       </InputWrapper>
-      <ProjectLink href={`${window.location.origin}/`}>
-        Back to projects
-      </ProjectLink>
     </>
   );
 };
@@ -54,10 +54,19 @@ const Label = styled.label`
 
 const Input = styled.input`
   width: 100%;
-  font-size: 24px;
+  font-size: 16px;
   max-width: 300px;
   padding: 8px;
   border-radius: 8px;
+  border: 2px solid black;
+`;
+
+const Row = styled.div`
+  width: 100%;
+  display: flex;
+  flex: row;
+  justify-content: flex-end;
+  margin: 0 0 24px 0;
 `;
 
 const Button = styled.button`
@@ -68,8 +77,15 @@ const Button = styled.button`
   font-size: 16px;
   font-weight: bold;
   color: white;
-  border: none;
+  border: 1px solid blue;
   border-radius: 8px;
+`;
+
+const CancelButton = styled(Button)`
+  background: transparent;
+  color: black;
+  border: 1px solid black;
+  margin: 8px 8px 8px 0;
 `;
 
 const Error = styled.span`
