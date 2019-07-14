@@ -21,9 +21,13 @@ export default NavBar;
 export const Title = styled.h1`
   width: 100%;
   margin: 24px 0 24px 0;
-  font-size: 48px;
+  font-size: 36px;
   opacity: 0.9;
   display: ${props => (props.hide ? "none" : "inline-block")};
+
+  @media (min-width: 425px) {
+    font-size: 48px;
+  }
 `;
 
 export const Wrapper = styled.div`

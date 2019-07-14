@@ -57,6 +57,7 @@ const Input = styled.input`
   font-size: 24px;
   max-width: 300px;
   padding: 8px;
+  border-radius: 8px;
 `;
 
 const Button = styled.button`
@@ -68,7 +69,7 @@ const Button = styled.button`
   font-weight: bold;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
 `;
 
 const Error = styled.span`

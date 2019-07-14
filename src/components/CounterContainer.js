@@ -53,7 +53,7 @@ const Number = styled.p`
   font-size: 140px;
   margin: 0;
   opacity: 0.8;
-  @media (min-width: 475px) {
+  @media (min-width: 425px) {
     font-size: 200px;
   }
 `;
@@ -84,7 +84,7 @@ const Button = styled.button`
   text-align: center;
   background-color: transparent;
   border: 2px solid black;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: bold;
   font-size: 40px;
   touch-action: manipulation;

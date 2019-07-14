@@ -40,7 +40,7 @@ export const CreateProjectButton = styled.button`
   text-align: center;
   background-color: transparent;
   border: 2px solid black;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: bold;
   font-size: 40px;
   touch-action: manipulation;
@@ -78,7 +78,7 @@ export const Card = styled.div`
   font-size: 24px;
   text-align: center;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   transition: box-shadow 0.4s, width 0.4s;
   box-shadow: 0px 6px 20px 0px #0000002e;
   background-image: url(${props => props.background});

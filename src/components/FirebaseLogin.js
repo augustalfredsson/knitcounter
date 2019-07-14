@@ -51,7 +51,7 @@ export default FirebaseLogin;
 
 const Button = styled.button`
   border: 1px solid #232323;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 10px;
   margin: 20px;
 `;

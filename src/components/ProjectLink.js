@@ -20,10 +20,9 @@ export const ProjectTitle = styled.p`
   font-size: 16px;
   color: #323232;
   margin: 0px auto 0 auto;
-  padding: 4px 8px;
+  padding: 8px 8px;
   border: 1px solid #323232;
-  border-radius: 4px;
-  font-family: "Courier New", Courier, monospace;
+  border-radius: 8px;
   :hover {
     background: rgba(100, 100, 100, 0.1);
   }
