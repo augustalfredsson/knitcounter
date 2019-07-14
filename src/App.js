@@ -29,7 +29,7 @@ const App = () => {
 
   const { initializing, user } = useAuth();
   if (initializing) {
-    return <div>Loading</div>;
+    return <div />;
   }
 
   return (

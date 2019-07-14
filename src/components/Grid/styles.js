@@ -17,6 +17,7 @@ export const GridItem = styled.div`
   align-items: center;
   transition: 1s;
   cursor: pointer;
+  background-color: transparent;
 `;
 
 export const Card = styled.div`
@@ -42,4 +43,5 @@ export const Card = styled.div`
 export const CardLabel = styled.span`
   text-shadow: 0px 0px 5px black;
   transition: opacity 0.2s;
+  line-height: 1;
 `;

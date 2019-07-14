@@ -21,7 +21,6 @@ const ProjectsGrid = ({ list, history }) => {
         <NavBarItem />
       </NavBar>
 
-      {loading && <Title>Loading projects</Title>}
       {projects && (
         <Grid
           data={projects}
