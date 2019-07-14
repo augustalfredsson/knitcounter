@@ -1,38 +1,35 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProjectLink from "./ProjectLink.js";
-import { useCreateProject } from "../helpers/firebaseHooks";
+import { useCreateCounter } from "../helpers/firebaseHooks";
 import NavBar from "./NavBar";
 
-const CreateProject = ({ history }) => {
-  const { createProject, projectId, loading, error } = useCreateProject();
-  const [projectName, setProjectName] = useState("");
+const CreateProject = ({ match, history }) => {
+  const { createCounter, counterId, loading, error } = useCreateCounter(
+    match.params.projectId
+  );
+  const [counterName, setCounterName] = useState("");
 
-  const handleProjectNameInputChange = event => {
-    setProjectName(event.target.value);
-  };
+  function handleInputChange(event) {
+    setCounterName(event.target.value);
+  }
 
   useEffect(() => {
-    if (!loading && projectId) {
-      history.push(`/project/${projectId}`);
+    if (!loading && counterId) {
+      history.push(`/project/${match.params.projectId}/${counterId}`);
     }
-  }, [loading, projectId]);
+  }, [loading, counterId]);
 
   return (
     <>
-      <NavBar title="New project" />
+      <NavBar title="New counter" />
       {error && <Error>Something went wrong, please try again!</Error>}
       <InputWrapper>
-        <Label>Project Name</Label>
-        <Input
-          type="text"
-          value={projectName}
-          onChange={handleProjectNameInputChange}
-        />
-
+        <Label>Counter Name</Label>
+        <Input type="text" value={counterName} onChange={handleInputChange} />
         <Row>
           <CancelButton onClick={() => history.goBack()}>Cancel</CancelButton>
-          <Button onClick={() => createProject(projectName)}>Create</Button>
+          <Button onClick={() => createCounter(counterName)}>Create</Button>
         </Row>
       </InputWrapper>
     </>

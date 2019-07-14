@@ -16,6 +16,9 @@ export default UserAvatar;
 
 const Wrapper = styled.div`
   display: flex;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Image = styled.img`

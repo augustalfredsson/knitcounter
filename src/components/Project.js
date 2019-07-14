@@ -7,17 +7,23 @@ import { useProject } from "../helpers/firebaseHooks";
 
 const Project = ({ match, history }) => {
   // const [project, setProject] = useState();
-  const { project, loading, error } = useProject(match.params.id);
+  const { project, counters, loading, error } = useProject(match.params.id);
+
+  const onCounterClicked = counterId => {
+    history.push(`/project/${project.id}/${counterId}`);
+  };
 
   return (
     <>
-      {project && (
+      {!loading && (
         <>
           <NavBar title={project.name} />
           <Grid
-            data={project.counters}
-            onItemClick={counterId =>
-              history.push(`/project/${project.id}/${counterId}`)
+            data={counters}
+            onItemClick={onCounterClicked}
+            additionalItem={{ label: "+" }}
+            onAdditionalItemClick={() =>
+              history.push(`/createcounter/${project.id}`)
             }
           />
           <ProjectLink href={`${window.location.origin}/`}>

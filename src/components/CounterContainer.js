@@ -11,23 +11,7 @@ const CounterContainer = ({ match }) => {
     match.params.counterId
   );
 
-  if (counter) {
-    return (
-      <WrapperFlexColumn>
-        <NavBar title={counter.name} />
-        <ProjectLink href={`${window.location.origin}/project/${project.id}`}>
-          {project.name}
-        </ProjectLink>
-        <Center>
-          <Number>{counter.value}</Number>
-        </Center>
-        <Row>
-          <Button onClick={decrement}>-</Button>
-          <Button onClick={increment}>+</Button>
-        </Row>
-      </WrapperFlexColumn>
-    );
-  } else {
+  if (loading) {
     return (
       <WrapperFlexColumn>
         <Column>
@@ -36,6 +20,22 @@ const CounterContainer = ({ match }) => {
       </WrapperFlexColumn>
     );
   }
+
+  return (
+    <WrapperFlexColumn>
+      <NavBar title={counter.name} />
+      <ProjectLink href={`${window.location.origin}/project/${project.id}`}>
+        {project.name}
+      </ProjectLink>
+      <Center>
+        <Number>{counter.value}</Number>
+      </Center>
+      <Row>
+        <Button onClick={decrement}>-</Button>
+        <Button onClick={increment}>+</Button>
+      </Row>
+    </WrapperFlexColumn>
+  );
 };
 
 export default CounterContainer;

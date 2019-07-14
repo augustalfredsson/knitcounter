@@ -8,9 +8,9 @@ const NavBar = ({ title }) => {
       <NavBarItem>
         <FirebaseLogin />
       </NavBarItem>
-      <NavBarItem>
+      <NavBarItemMiddle>
         <Title>{title}</Title>
-      </NavBarItem>
+      </NavBarItemMiddle>
       <NavBarItem />
     </Wrapper>
   );
@@ -18,7 +18,7 @@ const NavBar = ({ title }) => {
 
 export default NavBar;
 
-export const Title = styled.h1`
+const Title = styled.h1`
   width: 100%;
   margin: 24px 0 24px 0;
   font-size: 36px;
@@ -30,15 +30,19 @@ export const Title = styled.h1`
   }
 `;
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-export const NavBarItem = styled.div`
+const NavBarItem = styled.div`
   flex-grow: 1;
   flex-basis: 0;
   display: flex;
   align-items: center;
+`;
+
+const NavBarItemMiddle = styled(NavBarItem)`
+  flex-grow: 4;
 `;

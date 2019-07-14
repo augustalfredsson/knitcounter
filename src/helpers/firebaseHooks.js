@@ -47,33 +47,49 @@ export function useProject(projectId) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
+  const [counters, setCounters] = useState(null);
   const user = useSession();
   useEffect(() => {
     var unsubscribe;
     if (user) {
-      unsubscribe = db
+      const docRef = db
         .collection("users")
         .doc(user.uid)
         .collection("projects")
-        .doc(projectId)
-        .onSnapshot(
-          doc => {
-            setProject(doc.data());
-            setLoading(false);
-          },
-          err => {
-            console.log("error", err);
-            setError(err);
-          }
-        );
-      return () => unsubscribe();
+        .doc(projectId);
+
+      unsubscribe = docRef.onSnapshot(
+        doc => {
+          setProject(doc.data());
+          docRef
+            .collection("counters")
+            .get()
+            .then(querySnapshot => {
+              const c = {};
+              querySnapshot.forEach(doc => {
+                c[doc.id] = doc.data();
+              });
+              setCounters(c);
+              setLoading(false);
+            });
+        },
+        err => {
+          console.log("error", err);
+          setError(err);
+        }
+      );
+
+      return () => {
+        unsubscribe();
+      };
     }
   }, [user]);
 
   return {
     error,
     loading,
-    project
+    project,
+    counters
   };
 }
 
@@ -82,11 +98,20 @@ export function useCounter(projectId, counterId) {
   const user = useSession();
   const [counter, setCounter] = useState(null);
   const { error, loading, project } = useProject(projectId);
+
   useEffect(() => {
-    if (project) {
-      setCounter(project.counters[counterId]);
-    }
-  }, [project]);
+    const unsubscribe = db
+      .collection("users")
+      .doc(user.uid)
+      .collection("projects")
+      .doc(projectId)
+      .collection("counters")
+      .doc(counterId)
+      .onSnapshot(doc => {
+        setCounter(doc.data());
+      });
+    return () => unsubscribe();
+  }, user);
 
   const increment = () => {
     if (user) {
@@ -94,10 +119,9 @@ export function useCounter(projectId, counterId) {
         .doc(user.uid)
         .collection("projects")
         .doc(projectId)
-        .update(
-          `counters.${counterId}.value`,
-          firebase.firestore.FieldValue.increment(1)
-        )
+        .collection("counters")
+        .doc(counterId)
+        .update("value", firebase.firestore.FieldValue.increment(1))
         .then(d => {});
     }
   };
@@ -108,10 +132,9 @@ export function useCounter(projectId, counterId) {
         .doc(user.uid)
         .collection("projects")
         .doc(projectId)
-        .update(
-          `counters.${counterId}.value`,
-          firebase.firestore.FieldValue.increment(-1)
-        )
+        .collection("counters")
+        .doc(counterId)
+        .update("value", firebase.firestore.FieldValue.increment(-1))
         .then(d => {});
     }
   };
@@ -140,13 +163,41 @@ export const useCreateProject = () => {
       .doc();
     setProjectId(newProjectRef.id);
 
-    newProjectRef
-      .set({ name: projectName, id: newProjectRef.id, counters: {} })
-      .then(() => setLoading(false))
+    newProjectRef.set({ name: projectName, id: newProjectRef.id }).then(() => {
+      setLoading(false);
+    });
+  };
+
+  return { createProject, projectId, loading, error };
+};
+
+export const useCreateCounter = projectId => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [counterId, setCounterId] = useState();
+  const db = firebase.firestore();
+  const user = useSession();
+
+  const createCounter = counterName => {
+    var counterRef = db
+      .collection("users")
+      .doc(user.uid)
+      .collection("projects")
+      .doc(projectId)
+      .collection("counters")
+      .doc();
+
+    setCounterId(counterRef.id);
+
+    counterRef
+      .set({ name: counterName, id: counterRef.id, value: 0 })
+      .then(() => {
+        setLoading(false);
+      })
       .catch(e => {
         setError(e);
       });
   };
 
-  return { createProject, projectId, loading, error };
+  return { createCounter, counterId, loading, error };
 };
