@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import ProjectLink from "../ProjectLink";
-import { useCreateProject } from "../../helpers/firebaseHooks";
-import NavBar from "../NavBar";
+import ProjectLink from "./ProjectLink.js";
+import { useCreateProject } from "../helpers/firebaseHooks";
+import NavBar from "./NavBar";
 
 const CreateProject = ({ history }) => {
   const { createProject, projectId, loading, error } = useCreateProject();

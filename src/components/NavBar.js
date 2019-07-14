@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FirebaseLogin from "./FirebaseLogin";
+import FirebaseLogin from "./FirebaseLogin.js";
 
 const NavBar = ({ title }) => {
   return (

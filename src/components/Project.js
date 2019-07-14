@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import NavBar from "../NavBar";
-import Grid from "../Grid";
-import ProjectLink from "../ProjectLink";
-import { useProject } from "../../helpers/firebaseHooks";
+import NavBar from "./NavBar";
+import Grid from "./Grid.js";
+import ProjectLink from "./ProjectLink.js";
+import { useProject } from "../helpers/firebaseHooks";
 
 const Project = ({ match, history }) => {
   // const [project, setProject] = useState();

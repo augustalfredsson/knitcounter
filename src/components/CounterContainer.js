@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import NavBar from "../NavBar";
-import ProjectLink from "../ProjectLink";
-import { useCounter } from "../../helpers/firebaseHooks";
+import NavBar from "./NavBar";
+import ProjectLink from "./ProjectLink.js";
+import { useCounter } from "../helpers/firebaseHooks";
 
 const CounterContainer = ({ match }) => {
   const [count, setCount] = useState();

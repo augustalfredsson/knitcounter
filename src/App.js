@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import ProjectsGrid from "./components/ProjectsGrid";
-import Project from "./components/Project";
-import CreateProject from "./components/CreateProject";
+import ProjectsGrid from "./components/ProjectsGrid.js";
+import Project from "./components/Project.js";
+import CreateProject from "./components/CreateProject.js";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import CounterContainer from "./components/CounterContainer";
+import CounterContainer from "./components/CounterContainer.js";
 import { AppContainer } from "./styles";
 import { useAuth, userContext } from "./helpers/auth";
 import "./App.css";

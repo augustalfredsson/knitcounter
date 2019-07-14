@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { auth } from "firebase";
-import UserAvatar from "../UserAvatar";
+import UserAvatar from "./UserAvatar.js";
 
 const FirebaseLogin = () => {
   var provider = new auth.GoogleAuthProvider();
