@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import firebase, { auth } from "firebase";
-import { projectsList } from "../../data";
-import { Title } from "../../styles";
+import NavBar from "../NavBar";
 import Grid from "../Grid";
 import ProjectLink from "../ProjectLink";
 import { useProject } from "../../helpers/firebaseHooks";
@@ -13,11 +11,9 @@ const Project = ({ match, history }) => {
 
   return (
     <>
-      {loading && <Title>Loading</Title>}
-
       {project && (
         <>
-          <Title>{project.name}</Title>
+          <NavBar title={project.name} />
           <Grid
             data={project.counters}
             onItemClick={counterId =>

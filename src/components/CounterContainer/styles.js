@@ -4,7 +4,7 @@ export const ProjectTitle = styled.p`
   text-align: center;
   font-size: 16px;
   color: #323232;
-  margin: 32px auto 0 auto;
+  margin: 0px auto 0 auto;
   padding: 4px 8px;
   border: 1px solid #323232;
   border-radius: 4px;

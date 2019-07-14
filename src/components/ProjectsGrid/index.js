@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import firebase, { auth } from "firebase";
+import React from "react";
 import Grid from "../Grid";
-import { Title, NavBar, NavBarItem } from "../../styles";
-import FirebaseLogin from "../FirebaseLogin";
-import { useSession } from "../../helpers/auth";
+import NavBar from "../NavBar";
 import { useProjects } from "../../helpers/firebaseHooks";
 
 const ProjectsGrid = ({ list, history }) => {
@@ -11,15 +8,7 @@ const ProjectsGrid = ({ list, history }) => {
 
   return (
     <>
-      <NavBar>
-        <NavBarItem>
-          <FirebaseLogin />
-        </NavBarItem>
-        <NavBarItem>
-          <Title>Projects</Title>
-        </NavBarItem>
-        <NavBarItem />
-      </NavBar>
+      <NavBar title="Projects" />
 
       {projects && (
         <Grid

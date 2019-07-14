@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import FirebaseLogin from "../FirebaseLogin";
 import ProjectLink from "../ProjectLink";
 import { useCreateProject } from "../../helpers/firebaseHooks";
-import { Title, NavBar, NavBarItem } from "../../styles";
+import NavBar from "../NavBar";
 
 const CreateProject = ({ history }) => {
   const { createProject, projectId, loading, error } = useCreateProject();
@@ -21,15 +20,7 @@ const CreateProject = ({ history }) => {
 
   return (
     <>
-      <NavBar>
-        <NavBarItem>
-          <FirebaseLogin />
-        </NavBarItem>
-        <NavBarItem>
-          <Title>New project</Title>
-        </NavBarItem>
-        <NavBarItem />
-      </NavBar>
+      <NavBar title="New project" />
       {error && <Error>Something went wrong, please try again!</Error>}
       <InputWrapper>
         <Label>Project Name</Label>
