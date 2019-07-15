@@ -98,29 +98,24 @@ export function useCounter(projectId, counterId) {
   const user = useSession();
   const [counter, setCounter] = useState(null);
   const { error, loading, project } = useProject(projectId);
+  const counterRef = db
+    .collection("users")
+    .doc(user.uid)
+    .collection("projects")
+    .doc(projectId)
+    .collection("counters")
+    .doc(counterId);
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection("users")
-      .doc(user.uid)
-      .collection("projects")
-      .doc(projectId)
-      .collection("counters")
-      .doc(counterId)
-      .onSnapshot(doc => {
-        setCounter(doc.data());
-      });
+    const unsubscribe = counterRef.onSnapshot(doc => {
+      setCounter(doc.data());
+    });
     return () => unsubscribe();
   }, user);
 
   const increment = () => {
     if (user) {
-      db.collection("users")
-        .doc(user.uid)
-        .collection("projects")
-        .doc(projectId)
-        .collection("counters")
-        .doc(counterId)
+      counterRef
         .update("value", firebase.firestore.FieldValue.increment(1))
         .then(d => {});
     }
@@ -128,12 +123,7 @@ export function useCounter(projectId, counterId) {
 
   const decrement = () => {
     if (user) {
-      db.collection("users")
-        .doc(user.uid)
-        .collection("projects")
-        .doc(projectId)
-        .collection("counters")
-        .doc(counterId)
+      counterRef
         .update("value", firebase.firestore.FieldValue.increment(-1))
         .then(d => {});
     }
