@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { auth } from "firebase";
+import { useSession } from "../helpers/auth";
 import UserAvatar from "./UserAvatar.js";
 
 const FirebaseLogin = () => {
   var provider = new auth.GoogleAuthProvider();
 
-  const [currentUser, setCurrentUser] = useState();
+  const user = useSession();
 
   const login = () => {
     auth().signInWithRedirect(provider);
@@ -31,16 +32,8 @@ const FirebaseLogin = () => {
       // ...
     });
 
-  auth().onAuthStateChanged(function(user) {
-    if (user) {
-      setCurrentUser(user);
-    } else {
-      setCurrentUser(null);
-    }
-  });
-
-  if (currentUser) {
-    return <UserAvatar photoURL={currentUser.photoURL} />;
+  if (user) {
+    return <UserAvatar photoURL={user.photoURL} />;
   } else {
     // No user is signed in.
     return <Button onClick={login}>Log in with Google</Button>;
