@@ -7,9 +7,15 @@ import NavBar from "./NavBar";
 const CreateProject = ({ history }) => {
   const { createProject, projectId, loading, error } = useCreateProject();
   const [projectName, setProjectName] = useState("");
+  const [imageToUpload, setImageToUpload] = useState(null);
 
   const handleProjectNameInputChange = event => {
     setProjectName(event.target.value);
+  };
+
+  const handleOnFileChange = event => {
+    const selectedFile = document.getElementById("input").files[0];
+    setImageToUpload(selectedFile);
   };
 
   useEffect(() => {
@@ -30,9 +36,13 @@ const CreateProject = ({ history }) => {
           onChange={handleProjectNameInputChange}
         />
 
+        <Input type="file" id="input" onChange={handleOnFileChange} />
+
         <Row>
           <CancelButton onClick={() => history.goBack()}>Cancel</CancelButton>
-          <Button onClick={() => createProject(projectName)}>Create</Button>
+          <Button onClick={() => createProject(projectName, imageToUpload)}>
+            Create
+          </Button>
         </Row>
       </InputWrapper>
     </>

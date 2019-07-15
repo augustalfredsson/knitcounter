@@ -154,9 +154,11 @@ export const useCreateProject = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [projectId, setProjectId] = useState();
+  const { upload, uploading, imageURL } = useUploadImage();
+
   const db = firebase.firestore();
   const user = useSession();
-  const createProject = projectName => {
+  const createProject = (projectName, imageToUpload) => {
     var newProjectRef = db
       .collection("users")
       .doc(user.uid)
@@ -164,8 +166,18 @@ export const useCreateProject = () => {
       .doc();
     setProjectId(newProjectRef.id);
 
-    newProjectRef.set({ name: projectName, id: newProjectRef.id }).then(() => {
-      setLoading(false);
+    upload(imageToUpload, newProjectRef.id).then(snapshot => {
+      snapshot.ref.getDownloadURL().then(url => {
+        newProjectRef
+          .set({
+            name: projectName,
+            id: newProjectRef.id,
+            image: url
+          })
+          .then(() => {
+            setLoading(false);
+          });
+      });
     });
   };
 
@@ -207,4 +219,21 @@ export const useCreateCounter = projectId => {
   };
 
   return { createCounter, counterId, loading, error };
+};
+
+export const useUploadImage = (image, imageName) => {
+  const user = useSession();
+  const { uploading, setUploading } = useState(true);
+
+  const upload = (image, imageName) => {
+    var folderRef = firebase
+      .storage()
+      .ref()
+      .child("images")
+      .child(user.uid);
+    var imageRef = folderRef.child(`${imageName}.jpg`);
+    return imageRef.put(image);
+  };
+
+  return { upload, uploading };
 };
