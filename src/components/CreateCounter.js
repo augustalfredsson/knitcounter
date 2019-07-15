@@ -9,10 +9,15 @@ const CreateProject = ({ match, history }) => {
     match.params.projectId
   );
   const [counterName, setCounterName] = useState("");
+  const [countTo, setCountTo] = useState();
 
-  function handleInputChange(event) {
+  const handleCounterNameInputChange = event => {
     setCounterName(event.target.value);
-  }
+  };
+
+  const handleCountToInputChange = event => {
+    setCountTo(event.target.value);
+  };
 
   useEffect(() => {
     if (!loading && counterId) {
@@ -24,27 +29,53 @@ const CreateProject = ({ match, history }) => {
     <>
       <NavBar title="New counter" />
       {error && <Error>Something went wrong, please try again!</Error>}
-      <InputWrapper>
-        <Label>Counter Name</Label>
-        <Input type="text" value={counterName} onChange={handleInputChange} />
+      <Form>
+        <InputWrapper>
+          <Label>Counter Name</Label>
+          <Input
+            type="text"
+            value={counterName}
+            onChange={handleCounterNameInputChange}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Label>Count to: (optional)</Label>
+          <Input
+            type="number"
+            value={countTo}
+            onChange={handleCountToInputChange}
+          />
+        </InputWrapper>
         <Row>
           <CancelButton onClick={() => history.goBack()}>Cancel</CancelButton>
-          <Button onClick={() => createCounter(counterName)}>Create</Button>
+          <Button onClick={() => createCounter(counterName, countTo)}>
+            Create
+          </Button>
         </Row>
-      </InputWrapper>
+      </Form>
     </>
   );
 };
 
 export default CreateProject;
 
-const InputWrapper = styled.div`
+const Form = styled.div`
   width: 100%;
   max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 40px 0;
+  margin: 16px 0 0 0;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 24px 0 0 0;
+  width: 100%;
+  &:first-of-type {
+    margin-top: 0;
+  }
 `;
 
 const Label = styled.label`

@@ -168,7 +168,7 @@ export const useCreateCounter = projectId => {
   const db = firebase.firestore();
   const user = useSession();
 
-  const createCounter = counterName => {
+  const createCounter = (counterName, countTo = 0) => {
     var counterRef = db
       .collection("users")
       .doc(user.uid)
@@ -180,7 +180,12 @@ export const useCreateCounter = projectId => {
     setCounterId(counterRef.id);
 
     counterRef
-      .set({ name: counterName, id: counterRef.id, value: 0 })
+      .set({
+        name: counterName,
+        id: counterRef.id,
+        value: 0,
+        valueLimit: countTo
+      })
       .then(() => {
         setLoading(false);
       })
