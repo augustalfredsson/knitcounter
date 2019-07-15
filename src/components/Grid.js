@@ -22,9 +22,9 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
       })}
       {additionalItem && (
         <GridItem key="additionalItem">
-          <CreateProjectButton onClick={onAdditionalItemClick}>
+          <CreateButton onClick={onAdditionalItemClick}>
             {additionalItem.label}
-          </CreateProjectButton>
+          </CreateButton>
         </GridItem>
       )}
     </GridContainer>
@@ -33,7 +33,7 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
 
 export default Grid;
 
-export const CreateProjectButton = styled.button`
+export const CreateButton = styled.button`
   flex: 1 1 100px;
   height: 100%;
   padding: 0;
