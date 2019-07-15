@@ -97,6 +97,7 @@ export function useCounter(projectId, counterId) {
   const db = firebase.firestore();
   const user = useSession();
   const [counter, setCounter] = useState(null);
+  const [hasSavedNote, setHasSavedNote] = useState(false);
   const { error, loading, project } = useProject(projectId);
   const counterRef = db
     .collection("users")
@@ -129,13 +130,23 @@ export function useCounter(projectId, counterId) {
     }
   };
 
+  const saveNote = note => {
+    if (user) {
+      counterRef.update("note", note).then(d => {
+        setHasSavedNote(true);
+      });
+    }
+  };
+
   return {
     error,
     loading,
     counter,
     project,
     increment,
-    decrement
+    decrement,
+    saveNote,
+    hasSavedNote
   };
 }
 
@@ -184,7 +195,8 @@ export const useCreateCounter = projectId => {
         name: counterName,
         id: counterRef.id,
         value: 0,
-        valueLimit: countTo
+        valueLimit: countTo,
+        note: ""
       })
       .then(() => {
         setLoading(false);
