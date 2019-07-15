@@ -50,13 +50,8 @@ const FirebaseLogin = () => {
 export default FirebaseLogin;
 
 const Button = styled.button`
-  border: 1px solid #232323;
+  border: 1px solid black;
   border-radius: 8px;
   padding: 10px;
   margin: 20px;
-`;
-
-const Image = styled.img`
-  width: 50px;
-  border-radius: 100%;
 `;
