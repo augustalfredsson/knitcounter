@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import ProjectLink from "./ProjectLink.js";
 import { useCounter } from "../helpers/firebaseHooks";
 
-const CounterContainer = ({ match }) => {
+const Counter = ({ match }) => {
   const [count, setCount] = useState();
   const { error, loading, counter, project, increment, decrement } = useCounter(
     match.params.id,
@@ -38,7 +38,7 @@ const CounterContainer = ({ match }) => {
   );
 };
 
-export default CounterContainer;
+export default Counter;
 
 const CounterTitle = styled.h3`
   font-size: 50px;

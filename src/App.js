@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import CounterContainer from "./components/CounterContainer.js";
+import Counter from "./components/Counter.js";
 import { AppContainer } from "./styles";
 import { useAuth, userContext } from "./helpers/auth";
 import "./App.css";
@@ -45,11 +45,7 @@ const App = () => {
             component={CreateCounter}
           />
           <Route path="/project/:id" exact component={Project} />
-          <Route
-            path="/project/:id/:counterId"
-            exact
-            component={CounterContainer}
-          />
+          <Route path="/project/:id/:counterId" exact component={Counter} />
         </Router>
       </AppContainer>
     </userContext.Provider>
