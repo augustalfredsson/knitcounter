@@ -3,11 +3,9 @@ import styled from "styled-components";
 
 const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
   const [itemIdClicked, setItemIdClicked] = useState(null);
-  console.log("data", data);
   return (
     <GridContainer>
       {Object.keys(data).map(key => {
-        console.log("data[key].id", data[key].id);
         return (
           <GridItem
             key={data[key].id}
@@ -41,7 +39,7 @@ export const CreateProjectButton = styled.button`
   padding: 0;
   text-align: center;
   background-color: transparent;
-  border: 2px solid black;
+  border: 2px dashed black;
   border-radius: 8px;
   font-weight: bold;
   font-size: 40px;
