@@ -13,7 +13,7 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
           >
             <Card
               background={data[key].image}
-              onClick={() => onItemClick(data[key].id)}
+              onClick={() => onItemClick(data[key])}
             >
               <CardLabel>{data[key].name}</CardLabel>
             </Card>

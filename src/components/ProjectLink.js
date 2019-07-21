@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const ProjectLink = ({ href, children }) => {
+const ProjectLink = ({ href, state = {}, children }) => {
   return (
-    <StyledLink href={href}>
+    <StyledLink to={{ pathname: href, state: state }}>
       <ProjectTitle>{children}</ProjectTitle>
     </StyledLink>
   );
 };
 export default ProjectLink;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   text-decoration: none;
   margin: 0 auto;
 `;

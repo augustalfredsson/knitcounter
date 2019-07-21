@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FirebaseLogin from "./FirebaseLogin.js";
 
-const NavBar = ({ title }) => {
+const NavBar = ({ title = "Title" }) => {
   return (
     <Wrapper>
       <NavBarItem>

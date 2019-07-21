@@ -47,7 +47,7 @@ const Counter = ({ match }) => {
   return (
     <WrapperFlexColumn>
       <NavBar title={counter.name} />
-      <ProjectLink href={`${window.location.origin}/project/${project.id}`}>
+      <ProjectLink href={`/project/${project.id}`} state={{ ...project }}>
         {project.name}
       </ProjectLink>
       <Center>

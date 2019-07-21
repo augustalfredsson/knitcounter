@@ -4,43 +4,47 @@ import NavBar from "./NavBar";
 import Grid from "./Grid.js";
 import ProjectLink from "./ProjectLink.js";
 import { useProject } from "../helpers/firebaseHooks";
+import Loading from "./Loading";
 
 const Project = ({ match, history }) => {
   // const [project, setProject] = useState();
   const { project, counters, loading, error } = useProject(match.params.id);
 
-  const onCounterClicked = counterId => {
-    history.push(`/project/${project.id}/${counterId}`);
+  //Use pushed state if available
+  let pushedState = history.location.state || { name: "Title" };
+
+  const onCounterClicked = data => {
+    history.push(`/project/${project.id}/${data.id}`);
   };
 
   return (
     <>
-      {!loading && (
-        <>
-          <NavBar title={project.name} />
-          <Grid
-            data={counters}
-            onItemClick={onCounterClicked}
-            additionalItem={{ label: "+" }}
-            onAdditionalItemClick={() =>
-              history.push(`/createcounter/${project.id}`)
-            }
-          />
-          <ProjectLink href={`${window.location.origin}/`}>
-            More projects
-          </ProjectLink>
-        </>
-      )}
+      <>
+        <NavBar title={project.name || pushedState.name} />
+        {loading ? (
+          <LoadingWrapper>
+            <Loading />
+          </LoadingWrapper>
+        ) : (
+          <>
+            <Grid
+              data={counters}
+              onItemClick={onCounterClicked}
+              additionalItem={{ label: "+" }}
+              onAdditionalItemClick={() =>
+                history.push(`/createcounter/${project.id}`)
+              }
+            />
+            <ProjectLink href={`${window.location.origin}/`}>
+              More projects
+            </ProjectLink>
+          </>
+        )}
+      </>
     </>
   );
 };
 
 export default Project;
 
-const ListItem = styled.div`
-  margin: 16px 0;
-  width: 100%;
-  font-weight: bold;
-  font-size: 24px;
-  text-align: center;
-`;
+const LoadingWrapper = styled.div``;

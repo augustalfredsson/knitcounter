@@ -13,8 +13,11 @@ const ProjectsGrid = ({ list, history }) => {
       {projects && (
         <Grid
           data={projects}
-          onItemClick={id => {
-            history.push(`/project/${id}`);
+          onItemClick={data => {
+            history.push({
+              pathname: `/project/${data.id}`,
+              state: { ...data }
+            });
           }}
           additionalItem={{ label: "+" }}
           onAdditionalItemClick={() => history.push("/createproject")}

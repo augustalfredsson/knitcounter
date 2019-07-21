@@ -46,8 +46,8 @@ export function useProject(projectId) {
   // initialize our default state
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [project, setProject] = useState(null);
-  const [counters, setCounters] = useState(null);
+  const [project, setProject] = useState({});
+  const [counters, setCounters] = useState({});
   const user = useSession();
   useEffect(() => {
     var unsubscribe;
