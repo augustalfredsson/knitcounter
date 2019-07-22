@@ -11,6 +11,7 @@ import Counter from "./components/Counter.js";
 import { AppContainer } from "./styles";
 import { useAuth, userContext } from "./helpers/auth";
 import "./App.css";
+import Loading from "./components/Loading.js";
 
 const App = () => {
   // Your web app's Firebase configuration
@@ -30,7 +31,11 @@ const App = () => {
 
   const { initializing, user } = useAuth();
   if (initializing) {
-    return <div />;
+    return (
+      <AppContainer>
+        <Loading />
+      </AppContainer>
+    );
   }
 
   return (
