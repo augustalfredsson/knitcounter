@@ -19,12 +19,15 @@ const StyledLink = styled(Link)`
 export const ProjectTitle = styled.p`
   text-align: center;
   font-size: 16px;
-  color: black;
+  font-weight: bold;
+  background: black;
+  color: white;
   margin: 0px auto 0 auto;
   padding: 8px 8px;
   border: 1px solid black;
   border-radius: 8px;
   :hover {
-    background: rgba(100, 100, 100, 0.1);
+    background: transparent;
+    color: black;
   }
 `;

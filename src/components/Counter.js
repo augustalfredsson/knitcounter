@@ -119,15 +119,19 @@ const Button = styled.button`
   height: 100px;
   margin-left: 8px;
   text-align: center;
-  background-color: transparent;
-  border: 2px solid ${p => (p.disabled ? "graytext" : "black")};
+  color: white;
+  background-color: ${p => (p.disabled ? "#dedede" : "black")};
   border-radius: 8px;
+  border: none;
   font-weight: bold;
   font-size: 40px;
   touch-action: manipulation;
   outline: none;
   &:first-child {
     margin-left: 0px;
+  }
+  &:hover {
+    ${p => !p.disabled && "cursor: pointer "};
   }
 `;
 
