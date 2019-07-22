@@ -76,6 +76,7 @@ export const Card = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 24px;
+  font-weight: bold;
   text-align: center;
   color: white;
   border-radius: 8px;
@@ -84,6 +85,7 @@ export const Card = styled.div`
   background-image: url(${props => props.background});
   background-size: cover;
   background-position: center center;
+  background-color: black;
   &:hover {
     box-shadow: 0px 6px 10px 0px #0000002e;
   }
