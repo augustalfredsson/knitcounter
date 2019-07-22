@@ -88,6 +88,7 @@ const Label = styled.label`
 const Input = styled.input`
   width: 100%;
   font-size: 16px;
+  line-height: 1.2;
   max-width: 300px;
   padding: 8px;
   border-radius: 8px;

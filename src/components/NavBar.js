@@ -22,7 +22,7 @@ const Title = styled.h1`
   width: 100%;
   margin: 24px 0 24px 0;
   font-size: 36px;
-  opacity: 0.9;
+  line-height: 1;
   display: ${props => (props.hide ? "none" : "inline-block")};
 
   @media (min-width: 425px) {
