@@ -86,9 +86,8 @@ export default Counter;
 const Number = styled.p`
   align-self: center;
   color: black;
-  font-size: 140px;
+  font-size: 160px;
   margin: 0;
-  opacity: 0.8;
   @media (min-width: 425px) {
     font-size: 200px;
   }
