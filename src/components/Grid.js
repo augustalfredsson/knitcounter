@@ -33,23 +33,7 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
 
 export default Grid;
 
-export const CreateButton = styled.button`
-  flex: 1 1 100px;
-  height: 100%;
-  padding: 0;
-  text-align: center;
-  background-color: transparent;
-  border: 2px dashed black;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 40px;
-  touch-action: manipulation;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const GridContainer = styled.div`
+const GridContainer = styled.div`
   width: 100%;
   max-width: 500px;
   margin: 20px 0;
@@ -60,7 +44,7 @@ export const GridContainer = styled.div`
   grid-gap: 16px;
 `;
 
-export const GridItem = styled.div`
+const GridItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +53,7 @@ export const GridItem = styled.div`
   background-color: transparent;
 `;
 
-export const Card = styled.div`
+const Card = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -91,8 +75,28 @@ export const Card = styled.div`
   }
 `;
 
-export const CardLabel = styled.span`
+const CardLabel = styled.span`
   text-shadow: 0px 0px 5px black;
   transition: opacity 0.2s;
   line-height: 1;
+`;
+
+const CreateButton = styled.button`
+  flex: 1 1 100px;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+  background-color: transparent;
+  border: 2px dashed black;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 40px;
+  touch-action: manipulation;
+  transition: 0.25s color ease-in-out, 0.25s background ease-in-out;
+  &:hover,
+  &:active {
+    cursor: pointer;
+    background: black;
+    color: white;
+  }
 `;
