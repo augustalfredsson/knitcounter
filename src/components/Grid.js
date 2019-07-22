@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getColorFromPalette } from "../helpers/color";
 
 const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
   const [itemIdClicked, setItemIdClicked] = useState(null);
   return (
     <GridContainer>
-      {Object.keys(data).map(key => {
+      {Object.keys(data).map((key, i) => {
+        console.log("i", i);
         return (
           <GridItem
             key={data[key].id}
             show={itemIdClicked === null || itemIdClicked === data[key].id}
           >
             <Card
-              background={data[key].image}
+              image={data[key].image}
+              backgroundColor={
+                data[key].backgroundColor || getColorFromPalette(i)
+              }
               onClick={() => onItemClick(data[key])}
             >
               <CardLabel>{data[key].name}</CardLabel>
@@ -66,17 +71,17 @@ const Card = styled.div`
   border-radius: 8px;
   transition: box-shadow 0.4s, width 0.4s;
   box-shadow: 0px 6px 20px 0px #0000002e;
-  background-image: url(${props => props.background});
+  background-image: url(${props => props.image});
   background-size: cover;
   background-position: center center;
-  background-color: black;
+  background-color: ${p => p.backgroundColor};
   &:hover {
     box-shadow: 0px 6px 10px 0px #0000002e;
   }
 `;
 
 const CardLabel = styled.span`
-  text-shadow: 0px 0px 5px black;
+  /* text-shadow: 0px 0px 5px black; */
   transition: opacity 0.2s;
   line-height: 1;
 `;

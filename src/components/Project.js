@@ -27,14 +27,16 @@ const Project = ({ match, history }) => {
           </LoadingWrapper>
         ) : (
           <>
-            <Grid
-              data={counters}
-              onItemClick={onCounterClicked}
-              additionalItem={{ label: "+" }}
-              onAdditionalItemClick={() =>
-                history.push(`/createcounter/${project.id}`)
-              }
-            />
+            <GridWrapper>
+              <Grid
+                data={counters}
+                onItemClick={onCounterClicked}
+                additionalItem={{ label: "+" }}
+                onAdditionalItemClick={() =>
+                  history.push(`/createcounter/${project.id}`)
+                }
+              />
+            </GridWrapper>
             <ProjectLink href={`/`}>More projects</ProjectLink>
           </>
         )}
@@ -46,3 +48,10 @@ const Project = ({ match, history }) => {
 export default Project;
 
 const LoadingWrapper = styled.div``;
+
+const GridWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 16px 0;
+`;
