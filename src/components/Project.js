@@ -35,9 +35,7 @@ const Project = ({ match, history }) => {
                 history.push(`/createcounter/${project.id}`)
               }
             />
-            <ProjectLink href={`${window.location.origin}/`}>
-              More projects
-            </ProjectLink>
+            <ProjectLink href={`/`}>More projects</ProjectLink>
           </>
         )}
       </>
