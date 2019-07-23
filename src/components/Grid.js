@@ -11,6 +11,7 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
           <GridItem
             key={data[key].id}
             show={itemIdClicked === null || itemIdClicked === data[key].id}
+            data-testid="GridItem"
           >
             <Card
               image={data[key].image}
