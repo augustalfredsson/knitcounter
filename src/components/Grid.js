@@ -7,7 +7,6 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
   return (
     <GridContainer>
       {Object.keys(data).map((key, i) => {
-        console.log("i", i);
         return (
           <GridItem
             key={data[key].id}
@@ -54,36 +53,46 @@ const GridItem = styled.div`
   justify-content: center;
   align-items: center;
   transition: 1s;
-  cursor: pointer;
   background-color: transparent;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
-const Card = styled.div`
+const Card = styled.button`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
   font-weight: bold;
   text-align: center;
-  color: white;
-  border-radius: 8px;
+  border: none;
   transition: box-shadow 0.4s, width 0.4s;
   box-shadow: 0px 6px 20px 0px #0000002e;
-  background-image: url(${props => props.image});
+  background-image: url(${p => p.image});
   background-size: cover;
   background-position: center center;
   background-color: ${p => p.backgroundColor};
+  ${p =>
+    p.image &&
+    "::before { content: ''; background: black; position: absolute; top: 0; left: 0; width: 100%; height: 100%;opacity: 0.2;}"}
   &:hover {
     box-shadow: 0px 6px 10px 0px #0000002e;
+    cursor: pointer;
   }
 `;
 
 const CardLabel = styled.span`
-  /* text-shadow: 0px 0px 5px black; */
-  transition: opacity 0.2s;
+  font-size: 24px;
+  color: white;
   line-height: 1;
+  padding: 4px;
+  opacity: 1;
+  filter: brightness(1);
+  border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const CreateButton = styled.button`
