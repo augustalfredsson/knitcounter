@@ -8,7 +8,7 @@ import { useCounter } from "../helpers/firebaseHooks";
 const Counter = ({ match, history }) => {
   const [canDecrement, setCanDecrement] = useState(true);
   const [canIncrement, setCanIncrement] = useState(true);
-  const [editedNote, setEditedNote] = useState(null);
+  const [editedNote, setEditedNote] = useState("");
 
   const {
     error,
@@ -47,13 +47,23 @@ const Counter = ({ match, history }) => {
     return (
       <WrapperFlexColumn>
         <NavBar title={pushedState.name} />
+        <ProjectLink
+          href={`/project/${pushedState.project.id}`}
+          state={{ ...pushedState.project }}
+        >
+          {pushedState.project.name}
+        </ProjectLink>
         <Center>
           <Loading />
         </Center>
 
         <Row>
           <Column>
-            <Note value={editedNote} placeholder="Add a note..." />
+            <Note
+              value={editedNote}
+              onChange={handleOnNoteChanged}
+              placeholder="Add a note..."
+            />
           </Column>
         </Row>
         <Row>
