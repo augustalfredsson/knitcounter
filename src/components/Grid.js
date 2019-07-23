@@ -26,7 +26,7 @@ const Grid = ({ data, onItemClick, additionalItem, onAdditionalItemClick }) => {
         );
       })}
       {additionalItem && (
-        <GridItem key="additionalItem">
+        <GridItem key="additionalItem" noShadow>
           <CreateButton onClick={onAdditionalItemClick}>
             {additionalItem.label}
           </CreateButton>
@@ -58,6 +58,11 @@ const GridItem = styled.div`
   position: relative;
   border-radius: 8px;
   overflow: hidden;
+  transition: box-shadow 0.4s, width 0.4s;
+  ${p => !p.noShadow && "box-shadow: 0px 6px 20px 0px #0000002e;"}
+  &:hover {
+    ${p => !p.noShadow && "box-shadow: 0px 6px 10px 0px #0000002e;"}
+  }
 `;
 
 const Card = styled.button`
@@ -69,8 +74,6 @@ const Card = styled.button`
   font-weight: bold;
   text-align: center;
   border: none;
-  transition: box-shadow 0.4s, width 0.4s;
-  box-shadow: 0px 6px 20px 0px #0000002e;
   background-image: url(${p => p.image});
   background-size: cover;
   background-position: center center;
@@ -79,7 +82,6 @@ const Card = styled.button`
     p.image &&
     "::before { content: ''; background: black; position: absolute; top: 0; left: 0; width: 100%; height: 100%;opacity: 0.2;}"}
   &:hover {
-    box-shadow: 0px 6px 10px 0px #0000002e;
     cursor: pointer;
   }
 `;
