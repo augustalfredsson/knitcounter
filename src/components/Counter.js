@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import NavBar from "./NavBar";
 import ProjectLink from "./ProjectLink.js";
+import Loading from "./Loading.js";
 import { useCounter } from "../helpers/firebaseHooks";
 
-const Counter = ({ match }) => {
+const Counter = ({ match, history }) => {
   const [canDecrement, setCanDecrement] = useState(true);
   const [canIncrement, setCanIncrement] = useState(true);
   const [editedNote, setEditedNote] = useState(null);
@@ -40,8 +41,27 @@ const Counter = ({ match }) => {
     saveNote(editedNote);
   };
 
+  let pushedState = history.location.state || {};
+
   if (loading) {
-    return <></>;
+    return (
+      <WrapperFlexColumn>
+        <NavBar title={pushedState.name} />
+        <Center>
+          <Loading />
+        </Center>
+
+        <Row>
+          <Column>
+            <Note value={editedNote} placeholder="Add a note..." />
+          </Column>
+        </Row>
+        <Row>
+          <Button disabled>-</Button>
+          <Button disabled>+</Button>
+        </Row>
+      </WrapperFlexColumn>
+    );
   }
 
   return (
@@ -111,6 +131,7 @@ const Center = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const Button = styled.button`

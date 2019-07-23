@@ -14,7 +14,10 @@ const Project = ({ match, history }) => {
   let pushedState = history.location.state || { name: "Title" };
 
   const onCounterClicked = data => {
-    history.push(`/project/${project.id}/${data.id}`);
+    history.push({
+      pathname: `/project/${project.id}/${data.id}`,
+      state: { ...data }
+    });
   };
 
   return (
