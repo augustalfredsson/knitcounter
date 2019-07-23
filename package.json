@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "test": "react-app-rewired test --watch --verbose false",
     "eject": "react-scripts eject",
     "deploy": "react-app-rewired build && firebase deploy"
   },
@@ -28,6 +28,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/react": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react-app-rewired": "^2.1.3",
