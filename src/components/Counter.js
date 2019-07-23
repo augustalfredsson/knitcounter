@@ -154,16 +154,24 @@ const Note = styled.textarea`
   outline: none;
   box-shadow: none;
   resize: none;
+  &:focus::-webkit-input-placeholder {
+    opacity: 0;
+  }
+  &:focus::-moz-input-placeholder {
+    opacity: 0;
+  }
 `;
 
 const SaveButton = styled.button`
   margin: 0 0 0 0;
+  padding: 4px 8px;
   font-size: 12px;
+  font-weight: bold;
   align-self: flex-end;
   visibility: ${p => (p.visible ? "visible" : "hidden")};
   color: white;
-  background: #63ab69;
-  padding: 4px 8px;
+  background: #72d7d2;
+  text-transform: uppercase;
   border: none;
   border-radius: 5px;
   :hover {
