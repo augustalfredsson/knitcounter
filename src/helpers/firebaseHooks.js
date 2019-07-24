@@ -93,10 +93,10 @@ export function useProject(projectId) {
   };
 }
 
-export function useCounter(projectId, counterId) {
+export function useCounter(projectId, counterId, initialCounterState = {}) {
   const db = firebase.firestore();
   const user = useSession();
-  const [counter, setCounter] = useState(null);
+  const [counter, setCounter] = useState(initialCounterState);
   const [hasSavedNote, setHasSavedNote] = useState(false);
   const { error, loading, project } = useProject(projectId);
   const counterRef = db

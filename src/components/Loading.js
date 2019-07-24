@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Loading = () => (
-  <StyledLoading viewBox="0 0 64 64">
+const Loading = ({ isVisible = true }) => (
+  <StyledLoading viewBox="0 0 64 64" isVisible={isVisible}>
     <circle className="c1" cx="8" cy="25" r="8" fill="#000000" />
     <circle className="c2" cx="32" cy="25" r="8" fill="#000000" />
     <circle className="c3" cx="56" cy="25" r="8" fill="#000000" />
@@ -13,6 +13,7 @@ const StyledLoading = styled.svg`
   width: 100%;
   max-width: 50px;
   margin: 40px;
+  display: ${p => (p.isVisible ? "block" : "none")};
 
   & .c1 {
     animation: breathe 2s ease-in-out infinite;

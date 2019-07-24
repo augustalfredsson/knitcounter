@@ -2,14 +2,14 @@ import React from "react";
 import Grid from "./Grid.js";
 import NavBar from "./NavBar";
 import { useProjects } from "../helpers/firebaseHooks";
+import Loading from "./Loading.js";
 
 const ProjectsGrid = ({ list, history }) => {
   const { error, loading, projects } = useProjects();
-
   return (
     <>
       <NavBar title="Projects" />
-
+      <Loading isVisible={loading} />
       {projects && (
         <Grid
           data={projects}

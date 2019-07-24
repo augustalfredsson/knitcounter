@@ -16,7 +16,7 @@ const Project = ({ match, history }) => {
   const onCounterClicked = data => {
     history.push({
       pathname: `/project/${project.id}/${data.id}`,
-      state: { ...data, project }
+      state: { counter: data, project }
     });
   };
 

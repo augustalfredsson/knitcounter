@@ -9,6 +9,7 @@ const Counter = ({ match, history }) => {
   const [canDecrement, setCanDecrement] = useState(true);
   const [canIncrement, setCanIncrement] = useState(true);
   const [editedNote, setEditedNote] = useState("");
+  let pushedState = history.location.state || {};
 
   const {
     error,
@@ -18,7 +19,7 @@ const Counter = ({ match, history }) => {
     increment,
     decrement,
     saveNote
-  } = useCounter(match.params.id, match.params.counterId);
+  } = useCounter(match.params.id, match.params.counterId, pushedState.counter);
 
   useEffect(() => {
     if (counter) {
@@ -41,38 +42,36 @@ const Counter = ({ match, history }) => {
     saveNote(editedNote);
   };
 
-  let pushedState = history.location.state || {};
+  // if (loading) {
+  //   return (
+  //     <WrapperFlexColumn>
+  //       <NavBar title={pushedState.name} />
+  //       <ProjectLink
+  //         href={`/project/${pushedState.project.id}`}
+  //         state={{ ...pushedState.project }}
+  //       >
+  //         {pushedState.project.name}
+  //       </ProjectLink>
+  //       <Center>
+  //         <Loading />
+  //       </Center>
 
-  if (loading) {
-    return (
-      <WrapperFlexColumn>
-        <NavBar title={pushedState.name} />
-        <ProjectLink
-          href={`/project/${pushedState.project.id}`}
-          state={{ ...pushedState.project }}
-        >
-          {pushedState.project.name}
-        </ProjectLink>
-        <Center>
-          <Loading />
-        </Center>
-
-        <Row>
-          <Column>
-            <Note
-              value={editedNote}
-              onChange={handleOnNoteChanged}
-              placeholder="Add a note..."
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Button disabled>-</Button>
-          <Button disabled>+</Button>
-        </Row>
-      </WrapperFlexColumn>
-    );
-  }
+  //       <Row>
+  //         <Column>
+  //           <Note
+  //             value={editedNote}
+  //             onChange={handleOnNoteChanged}
+  //             placeholder="Add a note..."
+  //           />
+  //         </Column>
+  //       </Row>
+  //       <Row>
+  //         <Button disabled>-</Button>
+  //         <Button disabled>+</Button>
+  //       </Row>
+  //     </WrapperFlexColumn>
+  //   );
+  // }
 
   return (
     <WrapperFlexColumn>
@@ -81,7 +80,7 @@ const Counter = ({ match, history }) => {
         {project.name}
       </ProjectLink>
       <Center>
-        <Number>{counter.value}</Number>
+        {counter.value ? <Number>{counter.value}</Number> : <Loading />}
       </Center>
 
       <Row>
