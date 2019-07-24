@@ -9,7 +9,7 @@ import Loading from "./Loading";
 const Project = ({ match, history }) => {
   // const [project, setProject] = useState();
   //Use pushed state if available
-  let pushedState = history.location.state || { name: "Title" };
+  let pushedState = history.location.state;
   const { project, counters, loading, error } = useProject(
     match.params.id,
     pushedState.project
