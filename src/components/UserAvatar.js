@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const UserAvatar = ({ photoURL }) => {
-  const goHome = () => {
-    window.location = window.location.origin;
-  };
-
+const UserAvatar = ({ photoURL, onClick }) => {
   return (
     <Wrapper>
-      <Image src={photoURL} onClick={goHome} alt="" />
+      <Image src={photoURL} onClick={onClick} alt="" />
     </Wrapper>
   );
 };

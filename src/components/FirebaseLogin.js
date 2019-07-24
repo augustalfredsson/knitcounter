@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 import { auth } from "firebase";
 import { useSession } from "../helpers/auth";
 import UserAvatar from "./UserAvatar.js";
 
-const FirebaseLogin = () => {
+const FirebaseLogin = ({ history }) => {
   var provider = new auth.GoogleAuthProvider();
 
   const user = useSession();
@@ -32,15 +33,19 @@ const FirebaseLogin = () => {
       // ...
     });
 
+  const goHome = () => {
+    history.push("/");
+  };
+
   if (user) {
-    return <UserAvatar photoURL={user.photoURL} />;
+    return <UserAvatar photoURL={user.photoURL} onClick={goHome} />;
   } else {
     // No user is signed in.
     return <Button onClick={login}>Log in with Google</Button>;
   }
 };
 
-export default FirebaseLogin;
+export default withRouter(FirebaseLogin);
 
 const Button = styled.button`
   border: 1px solid black;
