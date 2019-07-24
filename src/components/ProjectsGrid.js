@@ -16,7 +16,7 @@ const ProjectsGrid = ({ list, history }) => {
           onItemClick={data => {
             history.push({
               pathname: `/project/${data.id}`,
-              state: { ...data }
+              state: { project: data }
             });
           }}
           additionalItem={{ label: "+" }}

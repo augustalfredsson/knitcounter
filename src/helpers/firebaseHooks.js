@@ -41,12 +41,12 @@ export function useProjects() {
   };
 }
 
-export function useProject(projectId) {
+export function useProject(projectId, intitialProjectState = {}) {
   const db = firebase.firestore();
   // initialize our default state
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [project, setProject] = useState({});
+  const [project, setProject] = useState(intitialProjectState);
   const [counters, setCounters] = useState({});
   const user = useSession();
   useEffect(() => {
@@ -93,12 +93,20 @@ export function useProject(projectId) {
   };
 }
 
-export function useCounter(projectId, counterId, initialCounterState = {}) {
+export function useCounter(
+  projectId,
+  counterId,
+  initialCounterState = {},
+  intitialProjectState = {}
+) {
   const db = firebase.firestore();
   const user = useSession();
   const [counter, setCounter] = useState(initialCounterState);
   const [hasSavedNote, setHasSavedNote] = useState(false);
-  const { error, loading, project } = useProject(projectId);
+  const { error, loading, project } = useProject(
+    projectId,
+    intitialProjectState
+  );
   const counterRef = db
     .collection("users")
     .doc(user.uid)

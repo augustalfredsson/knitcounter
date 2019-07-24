@@ -8,10 +8,12 @@ import Loading from "./Loading";
 
 const Project = ({ match, history }) => {
   // const [project, setProject] = useState();
-  const { project, counters, loading, error } = useProject(match.params.id);
-
   //Use pushed state if available
   let pushedState = history.location.state || { name: "Title" };
+  const { project, counters, loading, error } = useProject(
+    match.params.id,
+    pushedState.project
+  );
 
   const onCounterClicked = data => {
     history.push({
@@ -23,7 +25,7 @@ const Project = ({ match, history }) => {
   return (
     <>
       <>
-        <NavBar title={project.name || pushedState.name} />
+        <NavBar title={project.name} />
         {loading ? (
           <LoadingWrapper>
             <Loading />

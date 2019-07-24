@@ -19,7 +19,12 @@ const Counter = ({ match, history }) => {
     increment,
     decrement,
     saveNote
-  } = useCounter(match.params.id, match.params.counterId, pushedState.counter);
+  } = useCounter(
+    match.params.id,
+    match.params.counterId,
+    pushedState.counter,
+    pushedState.project
+  );
 
   useEffect(() => {
     if (counter) {
@@ -41,37 +46,6 @@ const Counter = ({ match, history }) => {
   const handleSaveNote = () => {
     saveNote(editedNote);
   };
-
-  // if (loading) {
-  //   return (
-  //     <WrapperFlexColumn>
-  //       <NavBar title={pushedState.name} />
-  //       <ProjectLink
-  //         href={`/project/${pushedState.project.id}`}
-  //         state={{ ...pushedState.project }}
-  //       >
-  //         {pushedState.project.name}
-  //       </ProjectLink>
-  //       <Center>
-  //         <Loading />
-  //       </Center>
-
-  //       <Row>
-  //         <Column>
-  //           <Note
-  //             value={editedNote}
-  //             onChange={handleOnNoteChanged}
-  //             placeholder="Add a note..."
-  //           />
-  //         </Column>
-  //       </Row>
-  //       <Row>
-  //         <Button disabled>-</Button>
-  //         <Button disabled>+</Button>
-  //       </Row>
-  //     </WrapperFlexColumn>
-  //   );
-  // }
 
   return (
     <WrapperFlexColumn>
